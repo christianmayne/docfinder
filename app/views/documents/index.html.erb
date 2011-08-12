@@ -1,0 +1,21 @@
+<div class="documents">
+  <table>
+    <tr>
+      <th>Title</th>
+      <th>Type</th>
+      <th>Edition</th>
+    </tr>
+  <% @documents.each do |document| %>
+    <tr>
+      <td><%= link_to document.name, document_path(document) %></td>
+      <td><%= link_to document.document_type.try(:name), document_path(document) %></td>
+      <td><%= link_to document.edition, document_path(document) %></td>
+      <% if !current_user.blank? && current_user.is_document_owner(document.user_id) %>
+        <td><%= link_to "Edit", edit_document_path(document) %> /
+            <%= link_to "Delete", document_path(document), :method => :delete %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+  </table>
+</div>

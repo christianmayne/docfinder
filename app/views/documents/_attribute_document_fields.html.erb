@@ -1,0 +1,7 @@
+<div class="span-18 attribute-document fields">
+  <span class="span-4"><%= f.collection_select :attribute_type_id, @attribute_type, :id, :name, :prompt => true %></span>
+  <span class="span-5">Value <%= f.text_field  :value, :rows => 3 %></span>
+  <span class="span-4 middle-input"> Date <%= f.text_field :date, :title => 'dd/mm/yyyy' %></span>
+  <span class="span-3 link-remove">ex: dd/mm/yyyy</span>
+  <span class="span-1 link-remove"><%= link_to_remove_fields "remove", f %></span>
+</div>

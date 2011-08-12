@@ -1,0 +1,55 @@
+<div id="search-box" class="span-24 search-part">
+  <%= render :partial => "shared/search_box" %>
+</div>
+<div class="simple-search">
+  <h3>
+    Simple Location Search
+  </h3>
+  <div class="doc-attribute-items">
+    <% form_for :search_location, :url => search_results_home_path do |f| %>
+      <div class="span-20 title-document short-input">
+        <span class="span-5"> Town / City <%= f.text_field :city, :size => 20 %></span>
+        <span class="span-5"> County <%= f.text_field :county, :size => 20 %></span>
+        <span class="span-5"> Country <%= f.text_field :country, :size => 20 %></span>
+      </div>
+      <div class="span-20 title-document date-selector">
+        <span class="span-4">
+          From Date
+           <%= f.text_field :date_from, :value => "yyyy", :only_integer => true,
+                :onfocus => '(this.value == "yyyy") ? this.value = "" : this.value',
+                :onblur => '(this.value == "") ? this.value = "yyyy" : this.value',
+                :class => 'date-4'
+            %>
+        </span>
+        <span class="span-4">
+         To Date
+          <%= f.text_field :date_to, :value => "yyyy",
+              :onfocus => '(this.value == "yy") ? this.value = "" : this.value',
+              :onblur => '(this.value == "") ? this.value = "yy" : this.value',
+              :class => 'date-4'
+          %>
+        </span>
+      </div>
+      <div class="span-22 title-document short-input">
+        <b>Or</b>
+      </div>
+      <div class="span-22 title-document date-selector">
+        <span class="span-8">
+          <%= f.text_field :date_other_from, :value => "yyy",
+              :onfocus => '(this.value == "yyy") ? this.value = "" : this.value',
+              :onblur => '(this.value == "") ? this.value = "yyy" : this.value',
+              :class => "date-4"
+          %> Years ago +/-
+          <%= f.text_field :date_other_to, :value => "yy",
+                :onfocus => '(this.value == "yy") ? this.value = "" : this.value',
+                :onblur => '(this.value == "") ? this.value = "yy" : this.value',
+                :class => "date-2"
+          %> years
+        </span>
+      </div>
+      <p style="text-align: center;">
+        <%= f.submit "Search" %>
+      </p>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="span-18 attribute-stockitem short-input fields">
+  <span class="span-3 right-10 short-select">
+    Event
+    <%= f.collection_select :event_type_id, @event_type, :id, :name, :prompt => true, :class => "event_type_select" %>
+  </span>
+  <span class="span-2 right-10">Date <%= f.text_field :date_event %> dd/mm/yyyy</span>
+  <span class="span-2 right-10">Street 1 <%= f.text_field :street1 %></span>
+  <span class="span-2 right-10">Street 2 <%= f.text_field :street2 %></span>
+  <span class="span-2 right-10">Town <%= f.text_field :town %></span>
+  <span class="span-2 right-10">County <%= f.text_field :county %></span>
+  <span class="span-2 right-10">Country <%= f.text_field :country %></span>
+  <span class="span-1 top-25"><%= link_to_remove_fields "remove", f %></span>
+</div>
+
+

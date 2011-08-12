@@ -1,0 +1,57 @@
+<div id="search-box" class="span-24 search-part">
+  <%= render :partial => "shared/search_box" %>
+</div>
+<div class="clear-both"></div>
+<div class="simple-search">
+  <% unless @documents.blank? %>
+    <div class="span-22 table">
+      <div class="span-21 table-th">
+        <span class="span-10 table-td">
+          Item Name <br/>
+          item details
+        </span>
+        <span class="span-3 table-td">
+          For Sale /<br/>
+          Not for sale
+        </span>
+        <span class="span-3 table-td">Type</span>
+        <span class="span-3">Thumbnail</span>
+      </div>
+      <% unless @documents.blank? %>
+        <% @documents.each do |document| %>
+          <div class="span-22 table-tr">
+            <span class="span-10 table-td">
+              <% if current_user %>
+                <%= link_to document.try(:name), document_path(document) %><br />
+              <% else %>
+                <%= document.try(:name) %><br />
+              <% end %>
+              <% document_people = document.people_list(params[:search_people][:firstname], params[:search_people][:lastname]) unless params[:search_people].blank? %>
+              <% unless document_people.blank? %>
+                <% document_people.each do |list_person| %>
+                  <div class="span-10">
+                    <%= "#{list_person.name_first}" %>
+                    <%= "#{list_person.name_last}" %>
+                    <%=", Born #{list_person.person_events.born.first.date_event.strftime('%Y')}" unless list_person.person_events.born.first.blank? %>
+                    <%=", #{list_person.person_events.first.try(:"city")}" unless list_person.person_events.first.try(:"city").blank? %>
+                    <%=", #{list_person.person_events.first.try(:"county")}" unless list_person.person_events.first.try(:"county").blank? %>
+                    <%=", #{list_person.person_events.first.try(:"country")}" unless list_person.person_events.first.try(:"country").blank? %>
+                  </div>
+                <% end %>
+              <% end %>
+            </span>
+            <span class="span-3 table-td">
+              For Sale
+            </span>
+            <span class="span-3 table-td"><%= document.document_type.name rescue '' %></span>
+            <span class="span-3">[image]</span>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% else %>
+  <div class="span-22" style="text-align: center">
+    <p>Document not found!</p>
+  </div>
+  <% end %>
+</div>

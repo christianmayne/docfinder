@@ -1,0 +1,74 @@
+<div class="documents">
+  <div class="title-document" style="text-align: center">
+    <h2 style="margin-bottom: 0em"><%= @document.try(:title) %></h2>
+    <p><%= @document.document_type.try(:name) %></p>
+  </div>
+
+  <% if !current_user.blank? && current_user.is_document_owner(@document.user_id) %>
+    <div class="span-22">
+      <span class="span-3" style="float: right">
+        <%= link_to "Edit Document", edit_document_path(@document) %>
+      </span>
+    </div>
+  <% end %>
+  <div class="span-22 doc-attribute-items document-attr">
+    <div class="span-22 title-document border-bottom">
+      <span class="span-2 border-right">Title</span>
+      <span class="span-5"><%= @document.name %></span>
+    </div>
+    
+    <div class="span-22 attribute-document">
+      <% @document.attribute_documents.each do |doc_attr| %>
+        <div class="span-22 attribute-document fields border-bottom">
+          <span class="span-2 border-right"><%= doc_attr.attribute_type.try(:name) %></span>
+          <span class="span-5"><%= "#{doc_attr.value}" %><%= ", #{doc_attr.date}" unless doc_attr.date.blank? %> </span>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="span-7 border-right">
+        <div class="span-5 attribute-stockitem">
+          <span class="span-3"><b>Binding :</b><br /> <%= @document.try(:binding) %></span>
+        </div>
+        <div class="span-5 attribute2-document">
+          <span class="span-4"><b>Pages : </b><%= @document.try(:pages) %> </span>
+        </div>
+        <div class="span-5 attribute2-document">
+          <span class="span-4">
+            <b>Size (cm) :</b>
+            <%= @document.try(:length) %> x <%= @document.try(:width) %> x <%= @document.try(:depth) %>
+          </span>
+        </div>
+        <div class="span-5 attribute2-document">
+          <p><b>Weight (g) :</b> <%= @document.try(:weight) %> </p>
+        </div>
+        <div class="span-5 attribute-stockitem">
+          <span class="span-2"><b>Condition :</b></span><br/> <%= @document.try(:condition) %>
+        </div>
+        <div class="span-5 attribute-stockitem">
+          <span class="span-2"><b>Comments :</b></span><br/> <%= @document.try(:comment) %>
+        </div>
+    </div>
+  </div>
+  <div class="clear-both" />
+  <p style="margin-left: 25px;font-weight: bold">
+    People mentioned within this document
+  </p>
+
+  <div class="span-22 documents-people">
+    <% if !@document.blank? && !@document.people.blank? %>
+      <% @document.people.each do |person|  %>
+        <div class="documents-person border-bottom" style="background-color: <%=person.sex_color%>">
+          <div style="font-weight: bold">
+            <%= person.name_title.titleize rescue '' %>
+            <%= person.name_first rescue ' unknown' %>
+            <%= " #{person.name_middle.titleize}" rescue '' %>
+            <%= person.name_last rescue 'unknown' %>
+            <span style="margin-left: 10px"><%#=person.sex_symbol%></span>
+          </div>
+          <%= person.event_date rescue '' %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

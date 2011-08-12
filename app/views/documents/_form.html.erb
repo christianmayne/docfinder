@@ -1,0 +1,62 @@
+<div class="span-22 title-document">
+  <span class="span-4 short-input span-125"> Name <%= f.text_field :name %>     </span>
+  <span class="span-6 long-input"> Title <%= f.text_field :title %>     </span>
+  <span class="span-5"> Type  <%= f.collection_select :document_type_id, @document_type, :id, :name, :prompt => true %> </span>
+  <span class="span-6"> Edition <%= f.text_field :edition %>  </span>
+</div>
+
+<div class="span-22 attribute-document">
+  <% f.fields_for :attribute_documents do |doc_attr| %>
+    <%= render :partial => 'attribute_document_fields', :locals => {:f => doc_attr}  %>
+  <% end %>
+  <span class="span-4 button-add"><%= link_to_add_fields "+ add another attribute", f, :attribute_documents %></span>
+</div>
+
+
+<div class="span-22 attribute2-document">
+  <span class="span-4">Pages <%= f.text_field :pages %> </span>
+  <span class="span-4">Length (mm) <%= f.text_field :length %> </span>
+  <span class="span-4">Width (mm)  <%= f.text_field :width %> </span>
+  <span class="span-4">Depth (mm)  <%= f.text_field :depth %> </span>
+  <span class="span-4">Weight (g)  <%= f.text_field :weight %> </span>
+</div>
+
+<div class="span-22 attribute-stockitem">
+    Condition <%= f.text_field :condition %> <br />
+    Binding <%= f.text_field :binding %><br />
+    Comments <%= f.text_field :comment %><br />
+</div>
+
+<div class="span-22 attribute-photo">
+  Upload Photo
+</div>
+<hr />
+<h3>
+  Add Person
+</h3>
+<p class="text-title">Add all the people and their personal details mentioned within the document</p>
+
+<div class="span-22 attribute-person">
+  <% f.fields_for :people do |person_attr| %>
+    <%= render :partial => 'person_fields', :locals => {:f => person_attr}  %>
+  <% end %>
+  <div class="span-21">
+    <span class="span-4 button-add"><%= link_to_add_fields "+ add another person", f, :people  %></span>
+  </div>
+</div>
+
+
+<hr />
+<h3>
+  Add Location
+</h3>
+<p class="text-title">Add any Locations mentioned in the document, not already added</p>
+
+<div class="span-22 title-document">
+  <% f.fields_for :locations do |location_attr| %>
+    <%= render :partial => 'location_fields', :locals => {:f => location_attr} %>
+  <% end %>
+  <span class="span-4 button-add link-remove-25"><%= link_to_add_fields "+ add another location", f, :locations  %></span>
+</div>
+
+<hr />
